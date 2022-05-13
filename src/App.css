@@ -1,0 +1,7 @@
+*{ margin: 0; padding: 0; box-sizing: border-box; }
+img{max-width: 100%;}
+
+.header_logo{
+  filter: brightness(0) invert(1);
+}
+
