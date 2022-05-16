@@ -2,8 +2,9 @@ import React from "react";
 import { InputLabel, TextField } from "@mui/material";
 import useStyles from "./style";
 import { ErrorMessage, useField } from "formik";
+import TextError from "common/FormControls/TextError/TextError";
 
-function CustomTextField({ label, placeholder, ...props }) {
+function CustomTextField({ type, label, placeholder, ...props }) {
   const classes = useStyles();
   const [field, meta] = useField(props);
   return (
@@ -11,6 +12,7 @@ function CustomTextField({ label, placeholder, ...props }) {
       <InputLabel className={classes.inputLable}>{label}</InputLabel>
       <TextField
         className={classes.textField}
+        type={type ? type : "text"}
         fullWidth
         {...field}
         {...props}
@@ -21,12 +23,7 @@ function CustomTextField({ label, placeholder, ...props }) {
         }}
         placeholder={placeholder}
       />
-      <ErrorMessage
-        component="div"
-        name={field.name}
-        className="error"
-        style={{ color: "#ff0000" }}
-      />
+      <ErrorMessage component={TextError} name={field.name} />
     </React.Fragment>
   );
 }

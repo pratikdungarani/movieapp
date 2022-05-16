@@ -1,36 +1,35 @@
 import React from "react";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { Checkbox, InputLabel } from "@mui/material";
-import { ErrorMessage, useField } from "formik";
+import { Field, ErrorMessage } from "formik";
+import TextError from "common/FormControls/TextError/TextError";
+import { InputLabel } from "@mui/material";
 
-const CustomCheckbox = ({ title, checkArr, ...props }) => {
-  console.log("checkbox field====>", checkArr);
-  const [field, meta] = useField(props);
-
-  const ChecBox = checkArr.map((check, i) => {
-    console.log("chk", check);
-    return (
-      <React.Fragment key={i}>
-        <FormControlLabel
-          control={<Checkbox value={check.id} {...field} {...props} />}
-          label={check?.label}
-        />
-      </React.Fragment>
-    );
-  });
-
+function CustomCheckbox(props) {
+  const { label, name, options, ...rest } = props;
   return (
-    <>
-      <InputLabel>{title}</InputLabel>
-      {ChecBox}
-      <ErrorMessage
-        component="div"
-        name={field.name}
-        className="error"
-        style={{ color: "#ff0000" }}
-      />
-    </>
+    <div className="form-control">
+      <InputLabel>{label}</InputLabel>
+      <Field name={name}>
+        {({ field }) => {
+          return options.map((option) => {
+            return (
+              <React.Fragment key={option.key}>
+                <input
+                  type="checkbox"
+                  id={option.value}
+                  {...field}
+                  {...rest}
+                  value={option.value}
+                  checked={field?.value?.includes(option?.value)}
+                />
+                <label htmlFor={option.value}>{option.value}</label>
+              </React.Fragment>
+            );
+          });
+        }}
+      </Field>
+      <ErrorMessage component={TextError} name={name} />
+    </div>
   );
-};
+}
 
 export default CustomCheckbox;

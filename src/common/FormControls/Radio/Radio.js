@@ -1,37 +1,35 @@
 import React from "react";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { Radio, FormLabel, RadioGroup, FormControl } from "@mui/material";
-import { ErrorMessage, useField } from "formik";
+import { Field, ErrorMessage } from "formik";
+import TextError from "common/FormControls/TextError/TextError";
+import { InputLabel } from "@mui/material";
 
-const CustomRadio = ({ title, radioArr, ...props }) => {
-  const [field, meta] = useField(props);
-  const radioBox = radioArr.map((check, i) => {
-    return (
-      <React.Fragment key={i}>
-        <FormControlLabel
-          {...field}
-          {...props}
-          control={<Radio />}
-          label={check.label}
-        />
-      </React.Fragment>
-    );
-  });
-
+function RadioButtons(props) {
+  const { label, name, options, ...rest } = props;
   return (
-    <>
-      <FormControl>
-        <FormLabel id="demo-row-radio-buttons-group-label">{title}</FormLabel>
-        <RadioGroup>{radioBox}</RadioGroup>
-        <ErrorMessage
-          component="div"
-          name={field.name}
-          className="error"
-          style={{ color: "#ff0000" }}
-        />
-      </FormControl>
-    </>
+    <div className="form-control">
+      <InputLabel>{label}</InputLabel>
+      <Field name={name}>
+        {({ field }) => {
+          return options.map((option) => {
+            return (
+              <React.Fragment key={option.key}>
+                <input
+                  type="radio"
+                  id={option.value}
+                  {...field}
+                  {...rest}
+                  value={option.value}
+                  checked={field.value === option.value}
+                />
+                <label htmlFor={option.value}>{option.label}</label>
+              </React.Fragment>
+            );
+          });
+        }}
+      </Field>
+      <ErrorMessage component={TextError} name={name} />
+    </div>
   );
-};
+}
 
-export default CustomRadio;
+export default RadioButtons;

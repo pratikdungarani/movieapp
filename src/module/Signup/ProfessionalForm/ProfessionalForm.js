@@ -1,80 +1,96 @@
 import React, { useState } from "react";
 import { Box, Typography, Grid, Button } from "@mui/material";
-import CustomTextField from "common/FormControls/Input/Input";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import CustomSelect from "common/FormControls/Select/Select";
-import DatePicker from "common/FormControls/DatePicker/DatePicker";
+import FormikController from "common/FormControls/FormikController/FormikController";
+
 import * as Yup from "yup";
 import useStyles from "./style";
 
 function ProfessionalForm() {
   const classess = useStyles();
-  const [professionalData, setprofessionalData] = useState({
+  const [professionalData] = useState({
     companyWebite: "",
+    materialstatus: "",
+    skills: [],
+    joinDate: null,
+    endDate: null,
   });
-
+  const [materialArray] = useState([
+    {
+      label: "Single",
+      name: "single",
+      value: "single",
+    },
+    {
+      label: "Marride",
+      name: "marride",
+      value: "marride",
+    },
+  ]);
+  const checkboxOptions = [
+    { label: "HTML", value: "html" },
+    { label: "CSS", value: "css" },
+    { label: "JavaScript", value: "javascript" },
+  ];
   return (
     <div>
       <Typography variant="h5" component="h5" className={classess.titleInfo}>
         Professional Info
       </Typography>
-      <Formik
-        initialValues={professionalData}
-        validationSchema={Yup.object({
-          companyWebite: Yup.string().url().required(" Website link required"),
-          joinDate: Yup.date()
-            .nullable()
-            .max(new Date(), `You Can not add Future Date is Your Birth Day`)
-            .required("Date Of Birth field required"),
-          endDate: Yup.date()
-            .nullable()
-            .max(new Date(), `You Can not add Future Date is Your Birth Day`)
-            .required("Date Of Birth field required"),
-        })}
-        onSubmit={(values, formikHelpers) => {
-          console.log("values", values);
-          formikHelpers.resetForm();
-        }}
-      >
-        {({ errors, touched, values }) => (
-          <Box>
-            <Form>
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <Box>
-                    <CustomTextField
-                      label="Company Website"
-                      name="companyWebite"
-                    />
-                  </Box>
-                </Grid>
-
-                <Grid item xs={4}>
-                  <Box>
-                    <DatePicker label="Joining Date" name="joinDate" />
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <Box>
-                    <DatePicker label="End Date" name="endDate" />
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <Box></Box>
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="large"
-              >
-                Sign up
-              </Button>
-            </Form>
-          </Box>
-        )}
-      </Formik>
+      <Box>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <Box>
+              <FormikController
+                control="input"
+                label="Company Website"
+                name="companyWebite"
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box>
+              <FormikController
+                control="radio"
+                label="Material Status"
+                options={materialArray}
+                name="materialstatus"
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box>
+              <FormikController
+                control="checkbox"
+                label="Your skillset"
+                name="skills"
+                options={checkboxOptions}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box>
+              <FormikController
+                control="date"
+                label="Joining Date"
+                name="joinDate"
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box>
+              <FormikController
+                control="date"
+                label="End Date"
+                name="endDate"
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box></Box>
+          </Grid>
+        </Grid>
+      </Box>
     </div>
   );
 }

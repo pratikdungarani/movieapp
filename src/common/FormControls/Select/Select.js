@@ -2,6 +2,7 @@ import React from "react";
 import { InputLabel, Select, MenuItem } from "@mui/material";
 import useStyles from "./style";
 import { ErrorMessage, useField } from "formik";
+import TextError from "common/FormControls/TextError/TextError";
 
 const CustomSelect = ({ label, selectArray, ...props }) => {
   const classes = useStyles();
@@ -24,7 +25,7 @@ const CustomSelect = ({ label, selectArray, ...props }) => {
       </Select>
 
       <ErrorMessage
-        component="div"
+        component={TextError}
         name={field.name}
         className="error"
         style={{ color: "#ff0000" }}
