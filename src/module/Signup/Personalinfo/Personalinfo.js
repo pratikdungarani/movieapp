@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Box, Typography, Grid, Button } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 import CustomTextField from "common/FormControls/Input/Input";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { Field, ErrorMessage } from "formik";
 import TextError from "common/FormControls/TextError/TextError";
 import FormikController from "common/FormControls/FormikController/FormikController";
 
 import useStyles from "./style";
 function Personalinfo() {
   const classes = useStyles();
-  const [hobbieArray, sethobbieArray] = useState([
+  const [hobbieArray] = useState([
     {
       name: "cricket",
       label: "Cricket",
@@ -27,17 +26,8 @@ function Personalinfo() {
     },
   ]);
 
-  const [blood, setBlood] = useState([
-    "A+",
-    "A-",
-    "B-",
-    "B+",
-    "O+",
-    "O-",
-    "AB+",
-    "AB-",
-  ]);
-  const [genderArray, setGenderArray] = useState([
+  const [blood] = useState(["A+", "A-", "B-", "B+", "O+", "O-", "AB+", "AB-"]);
+  const [genderArray] = useState([
     {
       id: 0,
       label: "Male",

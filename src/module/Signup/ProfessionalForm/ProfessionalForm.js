@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import { Box, Typography, Grid, Button } from "@mui/material";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Box, Typography, Grid } from "@mui/material";
 import FormikController from "common/FormControls/FormikController/FormikController";
 
-import * as Yup from "yup";
 import useStyles from "./style";
 
 function ProfessionalForm() {
   const classess = useStyles();
-  const [professionalData] = useState({
-    companyWebite: "",
-    materialstatus: "",
-    skills: [],
-    joinDate: null,
-    endDate: null,
-  });
+
   const [materialArray] = useState([
     {
       label: "Single",
