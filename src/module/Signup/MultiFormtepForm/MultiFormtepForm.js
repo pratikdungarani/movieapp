@@ -29,9 +29,6 @@ function MultiFormtepForm({ children, initialValues, onSubmit }) {
   };
 
   const handleSubmit = async (values, res) => {
-    if (currentStep.props.onSubmit) {
-      await currentStep.props.onSubmit(values, res);
-    }
     if (isLastStep) {
       setCompleted(true);
       return onSubmit(values, res);
@@ -71,8 +68,13 @@ function MultiFormtepForm({ children, initialValues, onSubmit }) {
               Step {stepNumber + 1} of {totalSteps}
             </p>
 
-            {/* Form Fields */}
-            {currentStep}
+            {completed ? (
+              <>
+                <h2>Form subbmit successfully !!! </h2>
+              </>
+            ) : (
+              currentStep
+            )}
 
             {!completed ? (
               <>
@@ -97,7 +99,11 @@ function MultiFormtepForm({ children, initialValues, onSubmit }) {
                 </Box>
               </>
             ) : (
-              <Button onClick={() => resetForm()}>Reset</Button>
+              <Box sx={{ my: 2 }}>
+                <Button variant="outlined" onClick={() => resetForm()}>
+                  Reset
+                </Button>
+              </Box>
             )}
           </Form>
         )}
