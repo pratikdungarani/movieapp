@@ -6,7 +6,7 @@ import TextError from "common/FormControls/TextError/TextError";
 import FormikController from "common/FormControls/FormikController/FormikController";
 
 import useStyles from "./style";
-function Personalinfo() {
+function PersonalInfo() {
   const classes = useStyles();
   const [hobbieArray] = useState([
     {
@@ -181,4 +181,4 @@ function Personalinfo() {
   );
 }
 
-export default Personalinfo;
+export default PersonalInfo;
